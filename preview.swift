@@ -1,0 +1,241 @@
+
+import Foundation
+
+// This is a simple HTML representation of what your WellNest app UI might look like
+// We'll generate HTML to visualize the basic components
+
+print("""
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WellNest App Preview</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 390px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            height: 800px;
+            position: relative;
+        }
+        .header {
+            padding: 16px;
+            background: #f8f8f8;
+            border-bottom: 1px solid #eaeaea;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+        }
+        .add-button {
+            position: absolute;
+            right: 16px;
+            top: 16px;
+        }
+        .contact-list {
+            overflow-y: auto;
+            height: calc(100% - 120px);
+        }
+        .contact-row {
+            display: flex;
+            padding: 12px 16px;
+            border-bottom: 1px solid #eaeaea;
+            align-items: center;
+        }
+        .contact-info {
+            flex: 1;
+        }
+        .contact-name {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .contact-time {
+            font-size: 12px;
+            color: #888;
+        }
+        .mood-emoji {
+            font-size: 30px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .happy { background: rgba(0,255,0,0.1); }
+        .sad { background: rgba(255,128,0,0.1); }
+        .neutral { background: rgba(0,128,255,0.1); }
+        .stressed { background: rgba(255,0,0,0.1); }
+        .tab-bar {
+            display: flex;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            border-top: 1px solid #eaeaea;
+            background: white;
+        }
+        .tab {
+            flex: 1;
+            padding: 10px 0;
+            text-align: center;
+            color: #888;
+        }
+        .tab.active {
+            color: #007AFF;
+        }
+        .widget-container {
+            margin-top: 30px;
+            max-width: 390px;
+            margin: 30px auto;
+        }
+        .widget {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 16px;
+        }
+        .widget-small {
+            height: 150px;
+        }
+        .widget-medium {
+            height: 170px;
+        }
+        .widget-large {
+            height: 300px;
+        }
+        .widget-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .widget-contacts-small {
+            height: calc(100% - 30px);
+            overflow: hidden;
+        }
+        .widget-contact-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+        .widget-mood-grid {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+        .widget-mood-item {
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>WellNest App Preview</h2>
+    <div class="container">
+        <div class="header">
+            WellNest
+            <div class="add-button">+</div>
+        </div>
+        <div class="contact-list">
+            <div class="contact-row">
+                <div class="contact-info">
+                    <div class="contact-name">Emma</div>
+                    <div class="contact-time">Last updated: 2m ago</div>
+                </div>
+                <div class="mood-emoji happy">😊</div>
+            </div>
+            <div class="contact-row">
+                <div class="contact-info">
+                    <div class="contact-name">James</div>
+                    <div class="contact-time">Last updated: 1h ago</div>
+                </div>
+                <div class="mood-emoji sad">😔</div>
+            </div>
+            <div class="contact-row">
+                <div class="contact-info">
+                    <div class="contact-name">Sophia</div>
+                    <div class="contact-time">Last updated: 2h ago</div>
+                </div>
+                <div class="mood-emoji neutral">😐</div>
+            </div>
+            <div class="contact-row">
+                <div class="contact-info">
+                    <div class="contact-name">Noah</div>
+                    <div class="contact-time">Last updated: 3h ago</div>
+                </div>
+                <div class="mood-emoji stressed">😫</div>
+            </div>
+        </div>
+        <div class="tab-bar">
+            <div class="tab active">🏠</div>
+            <div class="tab">📚</div>
+            <div class="tab">⚙️</div>
+        </div>
+    </div>
+
+    <h2>Widget Previews</h2>
+    
+    <div class="widget-container">
+        <div class="widget widget-small">
+            <div class="widget-title">
+                <div>WellNest</div>
+                <div>❤️</div>
+            </div>
+            <div class="widget-contacts-small">
+                <div class="widget-contact-row">
+                    <div>Emma</div>
+                    <div>😊</div>
+                </div>
+                <div class="widget-contact-row">
+                    <div>James</div>
+                    <div>😔</div>
+                </div>
+                <div class="widget-contact-row">
+                    <div>Sophia</div>
+                    <div>😐</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="widget-container">
+        <div class="widget widget-medium">
+            <div class="widget-title">
+                <div>WellNest</div>
+                <div>Wellness Check</div>
+            </div>
+            <div class="widget-mood-grid">
+                <div class="widget-mood-item">
+                    <div class="mood-emoji happy" style="width: 40px; height: 40px; font-size: 20px; margin: 0 auto;">😊</div>
+                    <div>Emma</div>
+                </div>
+                <div class="widget-mood-item">
+                    <div class="mood-emoji sad" style="width: 40px; height: 40px; font-size: 20px; margin: 0 auto;">😔</div>
+                    <div>James</div>
+                </div>
+                <div class="widget-mood-item">
+                    <div class="mood-emoji neutral" style="width: 40px; height: 40px; font-size: 20px; margin: 0 auto;">😐</div>
+                    <div>Sophia</div>
+                </div>
+                <div class="widget-mood-item">
+                    <div class="mood-emoji stressed" style="width: 40px; height: 40px; font-size: 20px; margin: 0 auto;">😫</div>
+                    <div>Noah</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+""")
