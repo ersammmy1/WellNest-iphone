@@ -4,3 +4,14 @@ modules = ["swift"]
 
 [nix]
 channel = "stable-24_05"
+
+[workflows]
+runButton = "Preview"
+
+[[workflows.workflow]]
+name = "Preview"
+author = 40216446
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "swift preview.swift > preview.html && python -m http.server 8080"
