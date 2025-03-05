@@ -1,3 +1,4 @@
+
 entrypoint = "main.swift"
 
 modules = ["swift"]
@@ -14,4 +15,4 @@ author = 40216446
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "swift preview.swift > preview.html && python -m http.server 8080"
+args = "swift main.swift && echo 'Swift app run complete'"
