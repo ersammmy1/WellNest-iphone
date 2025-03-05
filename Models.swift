@@ -22,13 +22,7 @@ enum MoodStatus: String, CaseIterable, Identifiable, Codable {
     }
     
     var color: Color {
-        switch self {
-        case .happy: return .green
-        case .neutral: return .blue
-        case .sad: return .orange
-        case .stressed: return .red
-        case .anxious: return .purple
-        }
+        return AppColors.moodColor(self)
     }
     
     var description: String {

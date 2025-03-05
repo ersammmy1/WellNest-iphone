@@ -9,29 +9,71 @@ struct DashboardView: View {
     @State private var selectedContact: Contact?
     
     var body: some View {
-        List {
-            ForEach(contactStore.contacts) { contact in
-                ContactRow(contact: contact)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        selectedContact = contact
-                        showingContactDetail = true
+        ZStack {
+            AppColors.background
+                .edgesIgnoringSafeArea(.all)
+            
+            VStack(spacing: 0) {
+                // Header with logo
+                HStack {
+                    AppGraphics.logo
+                        .font(.largeTitle)
+                        .foregroundColor(AppColors.primary)
+                    
+                    Text("WellNest")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(AppColors.text)
+                    
+                    Spacer()
+                }
+                .padding(.horizontal)
+                .padding(.top, 8)
+                
+                // Brief app description
+                Text("Stay connected with those you care about")
+                    .font(.subheadline)
+                    .foregroundColor(AppColors.textSecondary)
+                    .padding(.horizontal)
+                    .padding(.bottom, 12)
+                
+                // Contact listing in a ScrollView for custom styling
+                ScrollView {
+                    LazyVStack(spacing: 12) {
+                        ForEach(contactStore.contacts) { contact in
+                            ContactRow(contact: contact)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    selectedContact = contact
+                                    showingContactDetail = true
+                                }
+                        }
                     }
-            }
-            .onDelete { indexSet in
-                contactStore.deleteContact(at: indexSet)
-            }
-        }
-        .navigationTitle("WellNest")
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    showingAddContact = true
-                }) {
-                    Image(systemName: "person.badge.plus")
+                    .padding(.horizontal)
+                }
+                
+                // Floating action button for adding contacts
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            showingAddContact = true
+                        }) {
+                            AppGraphics.addIcon
+                                .font(.system(size: 24))
+                                .padding()
+                                .background(AppColors.primary)
+                                .foregroundColor(.white)
+                                .clipShape(Circle())
+                                .shadow(color: AppColors.primary.opacity(0.4), radius: 5, x: 0, y: 3)
+                        }
+                        .padding()
+                    }
                 }
             }
         }
+        .navigationBarHidden(true)
         .sheet(isPresented: $showingAddContact) {
             NavigationView {
                 ContactEditView(contactStore: contactStore)
@@ -51,24 +93,30 @@ struct ContactRow: View {
     let contact: Contact
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(contact.name)
-                    .font(.headline)
-                Text("Last updated: \(timeAgo(from: contact.lastUpdated))")
-                    .font(.caption)
-                    .foregroundColor(.gray)
+        AppStyles.cardStyle(
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(contact.name)
+                        .font(.headline)
+                        .foregroundColor(AppColors.text)
+                    
+                    HStack {
+                        Image(systemName: "clock")
+                            .font(.caption2)
+                            .foregroundColor(AppColors.textSecondary)
+                        
+                        Text(timeAgo(from: contact.lastUpdated))
+                            .font(.caption)
+                            .foregroundColor(AppColors.textSecondary)
+                    }
+                }
+                
+                Spacer()
+                
+                AppStyles.moodIndicator(contact.mood)
             }
-            
-            Spacer()
-            
-            Text(contact.mood.emoji)
-                .font(.system(size: 30))
-                .padding(8)
-                .background(contact.mood.color.opacity(0.2))
-                .clipShape(Circle())
-        }
-        .padding(.vertical, 8)
+            .padding()
+        )
     }
     
     func timeAgo(from date: Date) -> String {
@@ -85,98 +133,149 @@ struct ContactDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .center, spacing: 20) {
-                Text(contact.mood.emoji)
-                    .font(.system(size: 80))
-                    .padding()
-                    .background(contact.mood.color.opacity(0.2))
-                    .clipShape(Circle())
-                
-                Text(contact.name)
-                    .font(.title)
-                    .fontWeight(.bold)
-                
-                Text(contact.mood.description)
-                    .font(.headline)
-                    .foregroundColor(.secondary)
-                
-                Text("Last updated: \(formattedDate(contact.lastUpdated))")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                
-                Divider()
-                
-                if let phone = contact.phoneNumber {
-                    ContactInfoRow(iconName: "phone.fill", label: "Phone", value: phone)
-                }
-                
-                if let email = contact.email {
-                    ContactInfoRow(iconName: "envelope.fill", label: "Email", value: email)
-                }
-                
-                if let notes = contact.notes, !notes.isEmpty {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Notes")
-                            .font(.headline)
+        ZStack {
+            AppColors.background
+                .edgesIgnoringSafeArea(.all)
+            
+            ScrollView {
+                VStack(alignment: .center, spacing: 24) {
+                    // Profile header with avatar-like mood indicator
+                    VStack(spacing: 16) {
+                        // Decorative wave pattern at the top
+                        Rectangle()
+                            .fill(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [contact.mood.color.opacity(0.7), contact.mood.color.opacity(0.3)]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .frame(height: 100)
+                            .clipShape(
+                                RoundedShape(corners: [.bottomLeft, .bottomRight], radius: 30)
+                            )
+                            .edgesIgnoringSafeArea(.top)
+                            .overlay(
+                                Text(contact.mood.emoji)
+                                    .font(.system(size: 80))
+                                    .shadow(color: Color.white.opacity(0.7), radius: 5, x: 0, y: 0)
+                                    .offset(y: 40)
+                            )
+                            .padding(.bottom, 40)
                         
-                        Text(notes)
-                            .font(.body)
-                            .padding()
-                            .background(Color.gray.opacity(0.1))
-                            .cornerRadius(8)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-                }
-                
-                HStack(spacing: 30) {
-                    Button(action: {
-                        // Action for messaging
-                    }) {
-                        VStack {
-                            Image(systemName: "message.fill")
-                                .font(.system(size: 24))
-                            Text("Message")
-                                .font(.caption)
+                        Text(contact.name)
+                            .font(.system(size: 28, weight: .bold, design: .rounded))
+                            .foregroundColor(AppColors.text)
+                        
+                        Text(contact.mood.description)
+                            .font(.headline)
+                            .foregroundColor(contact.mood.color)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                            .background(contact.mood.color.opacity(0.1))
+                            .clipShape(Capsule())
+                        
+                        HStack {
+                            Image(systemName: "clock.arrow.circlepath")
+                                .foregroundColor(AppColors.textSecondary)
+                            
+                            Text(formattedDate(contact.lastUpdated))
+                                .font(.subheadline)
+                                .foregroundColor(AppColors.textSecondary)
                         }
+                        .padding(.top, 4)
                     }
+                    .padding(.bottom, 16)
                     
-                    Button(action: {
-                        // Action for calling
-                    }) {
-                        VStack {
-                            Image(systemName: "phone.fill")
-                                .font(.system(size: 24))
-                            Text("Call")
-                                .font(.caption)
+                    // Contact Information Card
+                    AppStyles.cardStyle(
+                        VStack(alignment: .leading, spacing: 16) {
+                            Text("Contact Information")
+                                .headerStyle()
+                                .padding(.bottom, 8)
+                            
+                            if let phone = contact.phoneNumber {
+                                ContactInfoRow(iconName: "phone.fill", label: "Phone", value: phone)
+                            }
+                            
+                            if let email = contact.email {
+                                ContactInfoRow(iconName: "envelope.fill", label: "Email", value: email)
+                            }
+                            
+                            if let notes = contact.notes, !notes.isEmpty {
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text("Notes")
+                                        .font(.headline)
+                                        .foregroundColor(AppColors.text)
+                                    
+                                    Text(notes)
+                                        .font(.body)
+                                        .foregroundColor(AppColors.text)
+                                        .padding()
+                                        .background(AppColors.background)
+                                        .cornerRadius(8)
+                                }
+                            }
+                        }
+                        .padding()
+                    )
+                    .padding(.horizontal)
+                    
+                    // Action Buttons
+                    HStack(spacing: 16) {
+                        Button(action: {
+                            // Action for messaging
+                        }) {
+                            AppStyles.primaryButton(
+                                HStack {
+                                    AppGraphics.messageIcon
+                                    Text("Message")
+                                }
+                            )
+                        }
+                        
+                        Button(action: {
+                            // Action for calling
+                        }) {
+                            AppStyles.secondaryButton(
+                                HStack {
+                                    AppGraphics.callIcon
+                                    Text("Call")
+                                }
+                            )
                         }
                     }
+                    .padding(.top, 16)
                     
                     Button(action: {
                         // Action for video call
                     }) {
-                        VStack {
-                            Image(systemName: "video.fill")
-                                .font(.system(size: 24))
-                            Text("Video")
-                                .font(.caption)
+                        HStack {
+                            AppGraphics.videoIcon
+                            Text("Video Chat")
                         }
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 40)
+                        .background(contact.mood.color.opacity(0.2))
+                        .foregroundColor(contact.mood.color)
+                        .cornerRadius(10)
                     }
+                    .padding(.top, 8)
                 }
-                .padding()
-                .foregroundColor(.blue)
+                .padding(.top, 60)
+                .padding(.bottom, 24)
             }
-            .padding()
         }
+        .navigationBarItems(
+            trailing: Button(action: {
+                showingEditContact = true
+            }) {
+                AppGraphics.editIcon
+                    .font(.system(size: 20))
+                    .foregroundColor(AppColors.primary)
+            }
+        )
         .navigationBarTitle("", displayMode: .inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Edit") {
-                    showingEditContact = true
-                }
-            }
-        }
         .sheet(isPresented: $showingEditContact) {
             NavigationView {
                 ContactEditView(contactStore: contactStore, contact: contact)
@@ -192,29 +291,58 @@ struct ContactDetailView: View {
     }
 }
 
+// Custom shape for curved edges
+struct RoundedShape: Shape {
+    var corners: UIRectCorner
+    var radius: CGFloat
+    
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(
+            roundedRect: rect,
+            byRoundingCorners: corners,
+            cornerRadii: CGSize(width: radius, height: radius)
+        )
+        return Path(path.cgPath)
+    }
+}
+
 struct ContactInfoRow: View {
     let iconName: String
     let label: String
     let value: String
     
     var body: some View {
-        HStack {
+        HStack(spacing: 12) {
+            // Icon with circular background
             Image(systemName: iconName)
-                .foregroundColor(.blue)
-                .frame(width: 30)
+                .foregroundColor(AppColors.primary)
+                .font(.system(size: 16))
+                .frame(width: 36, height: 36)
+                .background(AppColors.primary.opacity(0.1))
+                .clipShape(Circle())
             
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 2) {
                 Text(label)
                     .font(.caption)
-                    .foregroundColor(.gray)
+                    .foregroundColor(AppColors.textSecondary)
                 
                 Text(value)
                     .font(.body)
+                    .foregroundColor(AppColors.text)
             }
             
             Spacer()
+            
+            // Interactive button
+            Button(action: {
+                // Copy to clipboard or perform action
+                UIPasteboard.general.string = value
+            }) {
+                Image(systemName: "square.on.square")
+                    .font(.system(size: 16))
+                    .foregroundColor(AppColors.primary.opacity(0.7))
+            }
         }
-        .padding(.horizontal)
     }
 }
 
