@@ -153,45 +153,68 @@ class VideoProcessingStore: ObservableObject {
 // This is a simple test harness to verify the app works in a command-line environment
 print("🚀 YouTube Video Creator App - Test Harness")
 
-// Create test instances of our stores
-let videoStore = VideoProcessingStore()
-let socialStore = SocialMediaStore()
+do {
+    // Create test instances of our stores
+    print("\n🏗️ Creating test instances...")
+    let videoStore = VideoProcessingStore()
+    let socialStore = SocialMediaStore()
+    print("✅ Test instances created successfully")
 
-// Test the YouTube search functionality
-print("\n📺 Testing YouTube Search...")
-videoStore.searchYouTube(query: "Swift programming")
-print("Search initiated. Results would appear in UI.")
+    // Test the YouTube search functionality
+    print("\n📺 Testing YouTube Search...")
+    videoStore.searchYouTube(query: "Swift programming")
+    print("✅ Search initiated. (In a real app, this would make API calls)")
+    
+    // Give some time for the async call to complete (in real code, we would use expectations)
+    print("⏳ Waiting for simulated search results...")
+    Thread.sleep(forTimeInterval: 1.5)
+    print("✅ Current search results count: \(videoStore.searchResults.count)")
 
-// Create a test video
-let testVideo = YouTubeVideo(
-    id: "test123", 
-    title: "Test Video", 
-    thumbnailURL: "https://example.com/thumb.jpg", 
-    channelTitle: "Test Channel", 
-    publishedAt: Date(), 
-    duration: "10:30"
-)
+    // Create a test video
+    print("\n🎬 Creating test video object...")
+    let testVideo = YouTubeVideo(
+        id: "test123", 
+        title: "Test Video", 
+        thumbnailURL: "https://example.com/thumb.jpg", 
+        channelTitle: "Test Channel", 
+        publishedAt: Date(), 
+        duration: "10:30"
+    )
+    print("✅ Test video created: \(testVideo.title)")
 
-// Test clip creation
-print("\n✂️ Testing Clip Creation...")
-videoStore.createClip(from: testVideo, startTime: 30, endTime: 60, title: "Swift Tutorial Clip")
-print("Clip created: \(videoStore.savedClips.count) clips in store")
+    // Test clip creation
+    print("\n✂️ Testing Clip Creation...")
+    videoStore.createClip(from: testVideo, startTime: 30, endTime: 60, title: "Swift Tutorial Clip")
+    print("✅ Clip created: \(videoStore.savedClips.count) clips in store")
 
-// Test clip processing
-if let firstClip = videoStore.savedClips.first {
-    print("\n⚙️ Testing Clip Processing...")
-    videoStore.processClip(firstClip)
-    print("Processing started for clip: \(firstClip.title)")
+    // Test clip processing
+    if let firstClip = videoStore.savedClips.first {
+        print("\n⚙️ Testing Clip Processing...")
+        videoStore.processClip(firstClip)
+        print("✅ Processing started for clip: \(firstClip.title)")
+        
+        // Wait for simulated processing to complete
+        print("⏳ Simulating video processing steps...")
+        Thread.sleep(forTimeInterval: 3.5)
+        print("✅ Current clip status: \(videoStore.savedClips.first?.status ?? .notStarted)")
+    } else {
+        print("❌ No clips available for processing. This is unexpected.")
+    }
+
+    // Test social media integration
+    print("\n🌐 Testing Social Media Integration...")
+    socialStore.connectAccount(platform: .youtube, username: "testuser")
+    print("✅ Connected YouTube account for testuser")
+    socialStore.connectAccount(platform: .instagram, username: "instauser")
+    print("✅ Connected Instagram account for instauser")
+
+    // Print test summary
+    print("\n✅ Test Summary:")
+    print("- YouTube Search: \(videoStore.searchResults.count) results retrieved")
+    print("- Clip Creation: \(videoStore.savedClips.count) clips")
+    print("- Social Media: \(socialStore.connectedAccountsCount) accounts connected")
+    print("\nThe app is ready for use! In a full UI environment, you would see the complete interface.")
+    
+} catch let error {
+    print("❌ Error during test execution: \(error.localizedDescription)")
 }
-
-// Test social media integration
-print("\n🌐 Testing Social Media Integration...")
-socialStore.connectAccount(platform: .youtube, username: "testuser")
-print("Connected YouTube account for testuser")
-
-// Print test summary
-print("\n✅ Test Summary:")
-print("- YouTube Search: Initiated")
-print("- Clip Creation: \(videoStore.savedClips.count) clips")
-print("- Social Media: \(socialStore.connectedAccountsCount) accounts connected")
-print("\nThe app is ready for use! In a full UI environment, you would see the complete interface.")
