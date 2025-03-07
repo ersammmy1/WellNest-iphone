@@ -7,10 +7,18 @@ modules = ["swift"]
 channel = "stable-24_05"
 
 [workflows]
-runButton = "Preview"
+runButton = "Run Swift App"
 
 [[workflows.workflow]]
 name = "Preview"
+author = 40216446
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "swift main.swift"
+
+[[workflows.workflow]]
+name = "Run Swift App"
 author = 40216446
 
 [[workflows.workflow.tasks]]
