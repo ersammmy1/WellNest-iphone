@@ -15,12 +15,4 @@ author = 40216446
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "swift main.swift && echo 'Swift app run complete'"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "swift main.swift && echo 'Swift app run complete'"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "swift main.swift && echo 'Swift app run complete'"
+args = "swift main.swift"
