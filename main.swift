@@ -66,11 +66,7 @@ class ContactStore: ObservableObject {
     }
 }
 
-// Placeholder for VideoProcessingStore
-class VideoProcessingStore: ObservableObject {}
-
-// Placeholder for SocialMediaStore
-class SocialMediaStore: ObservableObject {}
+// SocialMediaStore is defined in SocialMediaSettings.swift
 
 
 // Main App Structure (from edited code)
@@ -85,35 +81,26 @@ struct YourSwiftApp: App {
 
 // Main tab view for app navigation (from edited code)
 struct MainTabView: View {
-    @StateObject private var contactStore = ContactStore()
     @StateObject private var videoStore = VideoProcessingStore()
     @StateObject private var socialStore = SocialMediaStore()
 
     var body: some View {
         TabView {
-            // Placeholder View
-            Text("YouTube Search View\nComing Soon")
-                .multilineTextAlignment(.center)
-                .padding()
+            YouTubeSearchView()
                 .environmentObject(videoStore)
                 .tabItem {
                     Image(systemName: "play.rectangle.fill")
                     Text("Videos")
                 }
 
-            // Placeholder View
-            Text("Social Media Settings View\nComing Soon")
-                .multilineTextAlignment(.center)
-                .padding()
+            SocialMediaSettingsView()
                 .environmentObject(socialStore)
                 .tabItem {
                     Image(systemName: "network")
                     Text("Social")
                 }
 
-            Text("Analytics View\nComing Soon")
-                .multilineTextAlignment(.center)
-                .padding()
+            AnalyticsView()
                 .tabItem {
                     Image(systemName: "chart.bar.fill")
                     Text("Analytics")
@@ -126,6 +113,118 @@ struct MainTabView: View {
                 }
         }
         .accentColor(AppColors.primary)
+    }
+}
+
+// A simple analytics view
+struct AnalyticsView: View {
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 20) {
+                // Video stats card
+                AppStyles.cardStyle(
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Video Performance")
+                            .font(.headline)
+                        
+                        HStack {
+                            StatItem(title: "Videos", value: "12")
+                            StatItem(title: "Views", value: "1.5K")
+                            StatItem(title: "Likes", value: "324")
+                        }
+                        
+                        // Placeholder chart
+                        Rectangle()
+                            .fill(Color.gray.opacity(0.2))
+                            .frame(height: 150)
+                            .overlay(
+                                Text("Performance Chart")
+                                    .foregroundColor(.gray)
+                            )
+                    }
+                )
+                .padding(.horizontal)
+                
+                // Engagement metrics
+                AppStyles.cardStyle(
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Engagement")
+                            .font(.headline)
+                        
+                        HStack {
+                            StatItem(title: "Comments", value: "87")
+                            StatItem(title: "Shares", value: "45")
+                            StatItem(title: "Saves", value: "68")
+                        }
+                    }
+                )
+                .padding(.horizontal)
+                
+                // Platform breakdown
+                AppStyles.cardStyle(
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Platform Breakdown")
+                            .font(.headline)
+                        
+                        HStack {
+                            PlatformStat(platform: "YouTube", percentage: 45)
+                            PlatformStat(platform: "Instagram", percentage: 30)
+                            PlatformStat(platform: "TikTok", percentage: 25)
+                        }
+                    }
+                )
+                .padding(.horizontal)
+                
+                Spacer()
+            }
+            .padding(.top)
+            .navigationTitle("Analytics")
+        }
+    }
+}
+
+struct StatItem: View {
+    let title: String
+    let value: String
+    
+    var body: some View {
+        VStack {
+            Text(value)
+                .font(.title2)
+                .fontWeight(.bold)
+            
+            Text(title)
+                .font(.caption)
+                .foregroundColor(AppColors.textSecondary)
+        }
+        .frame(maxWidth: .infinity)
+    }
+}
+
+struct PlatformStat: View {
+    let platform: String
+    let percentage: Int
+    
+    var body: some View {
+        VStack {
+            Text("\(percentage)%")
+                .font(.headline)
+            
+            ZStack(alignment: .bottom) {
+                Rectangle()
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(width: 30, height: 100)
+                
+                Rectangle()
+                    .fill(AppColors.primary)
+                    .frame(width: 30, height: CGFloat(percentage))
+            }
+            
+            Text(platform)
+                .font(.caption)
+                .foregroundColor(AppColors.textSecondary)
+        }
+        .frame(maxWidth: .infinity)
     }
 }
 
