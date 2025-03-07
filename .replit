@@ -12,6 +12,7 @@ runButton = "Run Swift App"
 [[workflows.workflow]]
 name = "Preview"
 author = 40216446
+mode = "parallel"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
@@ -20,7 +21,17 @@ args = "swift main.swift"
 [[workflows.workflow]]
 name = "Run Swift App"
 author = 40216446
+mode = "parallel"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "swift main.swift"
+
+[[workflows.workflow]]
+name = "Run Tests"
+author = 40216446
+mode = "parallel"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "swift TestApp.swift"
