@@ -1,9 +1,21 @@
-
 import SwiftUI
+import Foundation
 
 // Import necessary models from YouTubeModels.swift
 enum ClipStatus {
     case notStarted, downloading, clipping, generatingResponse, addingSubtitles, uploading, complete, failed
+    var description: String {
+        switch self {
+        case .notStarted: return "Not Started"
+        case .downloading: return "Downloading"
+        case .clipping: return "Clipping"
+        case .generatingResponse: return "Generating Response"
+        case .addingSubtitles: return "Adding Subtitles"
+        case .uploading: return "Uploading"
+        case .complete: return "Complete"
+        case .failed: return "Failed"
+        }
+    }
 }
 
 struct YouTubeVideo: Identifiable {
@@ -164,10 +176,10 @@ do {
     print("\n📺 Testing YouTube Search...")
     videoStore.searchYouTube(query: "Swift programming")
     print("✅ Search initiated. (In a real app, this would make API calls)")
-    
+
     // Give some time for the async call to complete (in real code, we would use expectations)
     print("⏳ Waiting for simulated search results...")
-    Thread.sleep(forTimeInterval: 1.5)
+    Thread.sleep(forTimeInterval: 2.0)
     print("✅ Current search results count: \(videoStore.searchResults.count)")
 
     // Create a test video
@@ -192,11 +204,11 @@ do {
         print("\n⚙️ Testing Clip Processing...")
         videoStore.processClip(firstClip)
         print("✅ Processing started for clip: \(firstClip.title)")
-        
+
         // Wait for simulated processing to complete
         print("⏳ Simulating video processing steps...")
-        Thread.sleep(forTimeInterval: 3.5)
-        print("✅ Current clip status: \(videoStore.savedClips.first?.status ?? .notStarted)")
+        Thread.sleep(forTimeInterval: 4.0)
+        print("✅ Current clip status: \(videoStore.savedClips.first?.status.description)")
     } else {
         print("❌ No clips available for processing. This is unexpected.")
     }
@@ -214,7 +226,7 @@ do {
     print("- Clip Creation: \(videoStore.savedClips.count) clips")
     print("- Social Media: \(socialStore.connectedAccountsCount) accounts connected")
     print("\nThe app is ready for use! In a full UI environment, you would see the complete interface.")
-    
+
 } catch let error {
     print("❌ Error during test execution: \(error.localizedDescription)")
 }
