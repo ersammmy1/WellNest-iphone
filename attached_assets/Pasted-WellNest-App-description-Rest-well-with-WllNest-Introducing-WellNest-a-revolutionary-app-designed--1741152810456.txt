@@ -1,40 +1,41 @@
 WellNest App description
 Rest well with WllNest
 
-Introducing WellNest, a revolutionary app designed to help you stay connected with those you care about most. With its intuitive interface, WellNest makes it easier than ever to be aware of your loved ones' well-being. No need to dive into social media or spend hours on calls—our innovative WellNest widget gives you a quick wellness snapshot with just a glance at your phone's home screen. Keep your innermost circle supported and feel more connected, all without consuming our already busy schedules.
+Introducing WellNest
+	A revolutionary app designed to help you stay connected with those you care about most. With its intuitive interface, WellNest makes it easier than ever to be aware of your loved ones' well-being. No need to dive into social media or spend hours on calls—our innovative WellNest widget gives you a quick wellness snapshot with just a glance at your phone's home screen. Keep your innermost circle supported and feel more connected, all without consuming our already busy schedules.
 
 Key Features of the WellNest App
 
 Personalized Dashboard
-Upon launching WellNest, users are welcomed with a personalized dashboard displaying a list of their connected loved ones. Each person’s name is accompanied by a color-coded indicator or symbol reflecting their current well-being status. This feature enables users to quickly assess the emotional landscape of their innermost circle.
+	Upon launching WellNest, users are welcomed with a personalized dashboard displaying a list of their connected loved ones. Each person’s name is accompanied by a color-coded indicator or symbol reflecting their current well-being status. This feature enables users to quickly assess the emotional landscape of their innermost circle.
 
 Mood Indicators
-Users can select from a customized set of mood indicators or emojis that best represent their current emotional state. This intuitive method of expression allows for open communication without the necessity for lengthy explanations, facilitating a culture of transparency and care.
+	Users can select from a customized set of mood indicators or emojis that best represent their current emotional state. This intuitive method of expression allows for open communication without the necessity for lengthy explanations, facilitating a culture of transparency and care.
 
 Connection Awareness
-WellNest offers an overview of the well-being statuses of your connection network at a glance. By identifying individuals who might be experiencing challenges, users can promptly reach out with support—whether it’s through a message, a call, or an in-person visit—strengthening ties when they are most needed.
+	WellNest offers an overview of the well-being statuses of your connection network at a glance. By identifying individuals who might be experiencing challenges, users can promptly reach out with support—whether it’s through a message, a call, or an in-person visit—strengthening ties when they are most needed.
 
 Effortless Communication
-With a simple tap, users can initiate direct communication with a loved one who might need extra attention, fostering stronger relationships. WellNest is designed to enhance, not replace, meaningful interactions within your personal community.
+	With a simple tap, users can initiate direct communication with a loved one who might need extra attention, fostering stronger relationships. WellNest is designed to enhance, not replace, meaningful interactions within your personal community.
 
 Customizable Alerts
-Stay informed with customizable notifications every time a connected individual updates their well-being status. This feature keeps you engaged and ready to support anyone who may benefit from a check-in.
+	Stay informed with customizable notifications every time a connected individual updates their well-being status. This feature keeps you engaged and ready to support anyone who may benefit from a check-in.
 
 Support Network Connection
-For users who are struggling or have concerns about someone else, WellNest offers direct connections to mental health advocates or peer support groups. With this feature, users can easily access guided help and feel empowered to address their mental health needs or those of others.
+	For users who are struggling or have concerns about someone else, WellNest offers direct connections to mental health advocates or peer support groups. With this feature, users can easily access guided help and feel empowered to address their mental health needs or those of others.
 
 Resource Hub
-WellNest includes a comprehensive library of mental health resources, such as:
-- Crisis Hotlines:
-Immediate links to local and national support hotlines.
-- Informative Articles:
-A range of topics covering mental health, coping mechanisms, and wellness practices.
-- Interactive Tools:
-Exercises and methods designed to improve mental and emotional well-being.
+	WellNest includes a comprehensive library of mental health resources, such as:
+	- Crisis Hotlines:
+			Immediate links to local and national support hotlines.
+	- Informative Articles:
+			A range of topics covering mental health, coping mechanisms, and wellness practices.
+	- Interactive Tools:
+			Exercises and methods designed to improve mental and emotional well-being.
 
 WellNest Widget
-For added convenience, WellNest includes an interactive widget for your phone’s home screen. This tool provides a quick glance at your loved ones' well-being statuses, offering a real-time snapshot without needing to open the app itself.
+	For added convenience, WellNest includes an interactive widget for your phone’s home screen. This tool provides a quick glance at your loved ones' well-being statuses, offering a real-time snapshot without needing to open the app itself.
 
 Why Choose WellNest?
-In today’s fast-paced, digitally-driven world, personal connections often lack genuine depth, leaving individuals feeling isolated. WellNest bridges this gap by nurturing true connections and prioritizing well-being. Whether it’s checking in on a loved one during difficult times or simply staying informed of their general well-being, WellNest is your go-to app for cultivating a supportive network.
+	In today’s fast-paced, digitally-driven world, personal connections often lack genuine depth, leaving individuals feeling isolated. WellNest bridges this gap by nurturing true connections and prioritizing well-being. Whether it’s checking in on a loved one during difficult times or simply staying informed of their general well-being, WellNest is your go-to app for cultivating a supportive network.
 Implementation of Ai 
