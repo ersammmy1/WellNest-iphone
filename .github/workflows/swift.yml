@@ -20,3 +20,38 @@ jobs:
       run: swift build -v
     - name: Run tests
       run: swift test -v
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 3.0
+    - name: Install dependencies
+      run: |
+        gem install bundler
+        bundle install
+    - name: Run tests
+      run: |
+        bundle exec fastlane test
+    - name: Save state
+      id: save_state
+      run: echo "state=some_value" >> $GITHUB_ENV
+
+  cleanup:
+    runs-on: macos-latest
+    needs: build
+    if: always()
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Perform cleanup
+      run: |
+        # Add your cleanup commands here
+        echo "Killing orphan processes"
+        pkill -f process_name || true
+
+        echo "Removing temporary files"
+        rm -rf /path/to/temp/files
+
+        echo "Cleanup done"
